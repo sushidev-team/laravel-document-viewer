@@ -7,6 +7,10 @@ use Illuminate\Support\ServiceProvider;
 class DocumentViewerServiceProvider extends ServiceProvider
 {
 
+    public $macros = [
+        \AMBERSIVE\DocumentViewer\Macros\ResponseDocument::class
+    ];
+
     /**
      * Register services.
      *
@@ -24,6 +28,18 @@ class DocumentViewerServiceProvider extends ServiceProvider
      */
     public function boot()
     {
+
+        // Macros
+
+        collect($this->macros)->each(function($macro){
+
+            $cl = new $macro();
+            if(method_exists($cl, 'register') === true){
+                $cl->register();
+            }
+
+        });
+
         // Commands
         if ($this->app->runningInConsole()) {
             $this->commands([
