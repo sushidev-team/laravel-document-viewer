@@ -4,9 +4,7 @@ The goal of this project is the attemp to provide a helper functionality for cre
 
 !!! ATTENTION: This project is still work in progess !!! Do not use it until we release a stable candiate.
 
-[![Maintainability](https://api.codeclimate.com/v1/badges/0f9d20da7317b5425e72/maintainability)](https://codeclimate.com/github/AMBERSIVE/laravel-document-viewer/maintainability)
-
-[![Test Coverage](https://api.codeclimate.com/v1/badges/0f9d20da7317b5425e72/test_coverage)](https://codeclimate.com/github/AMBERSIVE/laravel-document-viewer/test_coverage)
+[![Maintainability](https://api.codeclimate.com/v1/badges/0f9d20da7317b5425e72/maintainability)](https://codeclimate.com/github/AMBERSIVE/laravel-document-viewer/maintainability) [![Test Coverage](https://api.codeclimate.com/v1/badges/0f9d20da7317b5425e72/test_coverage)](https://codeclimate.com/github/AMBERSIVE/laravel-document-viewer/test_coverage)
 
 ## Installation
 
