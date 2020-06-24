@@ -30,7 +30,6 @@ class DocumentViewerServiceProvider extends ServiceProvider
     {
 
         // Macros
-
         collect($this->macros)->each(function($macro){
 
             $cl = new $macro();
@@ -43,7 +42,7 @@ class DocumentViewerServiceProvider extends ServiceProvider
         // Commands
         if ($this->app->runningInConsole()) {
             $this->commands([
-               
+                \AMBERSIVE\DocumentViewer\Console\Commands\Dev\DocumentAdd::class,
             ]);
         }
 
@@ -55,6 +54,9 @@ class DocumentViewerServiceProvider extends ServiceProvider
         $this->mergeConfigFrom(
             __DIR__.'/Configs/document-viewer.php', 'document-viewer.php'
         );
+
+        // Views
+        $this->loadViewsFrom(__DIR__.'/Views', 'ambersive.documentviewer');
 
     }
 
