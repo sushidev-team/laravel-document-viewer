@@ -2,12 +2,12 @@
 
 The goal of this project is the attemp to provide a helper functionality for creating beautiful, printable and secure documents.
 
-!!! ATTENTION: This project is still work in progess !!! 
+!!! ATTENTION: This project is still work in progess !!! Do not use it until we release a stable candiate.
 
 ## Installation
 
 ```bash
-composer require ambersive/document-viewer
+composer require ambersive/documentviewer
 ```
 
 ## Usage
