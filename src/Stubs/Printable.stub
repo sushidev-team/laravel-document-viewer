@@ -2,13 +2,15 @@
 
 namespace DummyNamespace;
 
+use Illuminate\Http\Request;
+
 use AMBERSIVE\DocumentViewer\Abstracts\DocumentAbstract;
 
 class DummyClass extends DocumentAbstract
 {
 
-    public $data = [];
-    public $blade = "ambersive.documentviewer::printable_default";
+    public array $data   = [];
+    public String $blade = "ambersive.documentviewer::printable_default";
 
     /**
      * Set the data of this printable
@@ -17,6 +19,13 @@ class DummyClass extends DocumentAbstract
         // Request is available in $this->request
         // Save stuff in $this->data
         return $this;
+    }
+
+    public function uploadDocumentHandler(Request $request) {
+
+        // Handle the file upload
+        // Requires a response (preferable json)
+
     }
 
 }
