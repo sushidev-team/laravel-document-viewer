@@ -15,7 +15,7 @@ composer require ambersive/documentviewer
 ### Step 1: Create a printable
 
 ```bash
-php artisan make:printale "Invoice"
+php artisan make:printable "Invoice"
 ```
 
 ### Step 2: Register the document viewer
