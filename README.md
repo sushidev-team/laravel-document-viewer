@@ -48,7 +48,7 @@ The *signed* attribute will always be in effect for the get request of the docum
 
 If you do not want a upload leave the upload class empty or null.
 
-### Step 3: Modifiy the the Class
+### Step 3: Modifiy the Class
 
 The command above will create *Printable* Class in the folder *Printable* within app_path
 
