@@ -123,6 +123,10 @@ A full example might look like:
 
 ``` 
 
+## Need a way to create PDF files?
+
+We created a [microservice](https://github.com/AMBERSIVE/print-api) which is also open-source to create pdf files. If you need a smooth way to interact with this microservice you can use our [package](https://github.com/AMBERSIVE/laravel-print-api) for that.
+
 ## Security Vulnerabilities
 
 If you discover a security vulnerability within this package, please send an e-mail to Manuel Pirker-Ihl via [manuel.pirker-ihl@ambersive.com](mailto:manuel.pirker-ihl@ambersive.com). All security vulnerabilities will be promptly addressed.
