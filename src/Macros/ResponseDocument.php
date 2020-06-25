@@ -35,6 +35,13 @@ class ResponseDocument
 
             Route::post($route, "\\${documentClassUpload}@uploadDocument")->middleware($middlewareUpload)->name("${name}.upload");
 
+            // Validation endpoint
+            if ($documentClassInstance->useValidationEndpoint === false) {
+              return;
+            }
+
+            Route::get("${route}/validation", "\\${documentClass}@validateDocument")->middleware($middleware)->name($name);
+
       });
 
     }

@@ -10,5 +10,6 @@ interface DocumentInterface {
     public function setData();
     public function returnView();
     public function uploadDocument(Request $request);
+    public function validateDocument(Request $request);
 
 }

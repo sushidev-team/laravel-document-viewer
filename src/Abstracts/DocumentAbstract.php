@@ -11,6 +11,7 @@ abstract class DocumentAbstract implements DocumentInterface
 
     public array $data   = [];
     public array $params = [];
+    public bool  $useValidationEndpoint = false;
 
     public String $blade = "ambersive.documentviewer::printable_default";
 
@@ -44,6 +45,25 @@ abstract class DocumentAbstract implements DocumentInterface
         $result = $this->uploadDocumentHandler($request);
         if ($result === null) {
             abort(400, 'Error while uploading the file.');
+        }
+        return $result;
+    }
+        
+    /**
+     * Handle the validation request for the document
+     * Should return a json object if document requirement exists.
+     *
+     * @param  mixed $request
+     * @return void
+     */
+    public function validateDocument(Request $request) {
+        $this->params = $request->route()->parameters;
+        if (method_exists($this, 'validateDocumentHandler') === false) {
+            abort(400, 'Document cannot be validated.');
+        }
+        $result = $this->validateDocumentHandler($request);
+        if ($result === null) {
+            abort(400, 'Error while validating the file.');
         }
         return $result;
     }

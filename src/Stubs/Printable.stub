@@ -10,7 +10,8 @@ class DummyClass extends DocumentAbstract
 {
 
     public array $data   = [];
-    public String $blade = "ambersive.documentviewer::printable_default";
+    public String $blade = "DummyBladeName";
+    public bool  $useValidationEndpoint = false; 
 
     /**
      * Set the data of this printable
@@ -25,6 +26,13 @@ class DummyClass extends DocumentAbstract
 
         // Handle the file upload
         // Requires a response (preferable json)
+
+    }
+
+    public function validateDocumentHandler(Request $request) {
+
+        // Handle the validation
+        return ['status' => 200]; 
 
     }
 
