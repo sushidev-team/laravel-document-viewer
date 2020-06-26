@@ -103,7 +103,7 @@ class Invoice extends DocumentAbstract
 The make command also creates a blade file within the resource folder.
 It will come with some basic scaffold settings so you will be able to create beautiful documents in no time.
 
-But you can also define or resource the files.
+If you want to create a custom blade file make sure you extend it with our base blade. Otherwise the enhanced view optimizations won't work.
 
 ```php
 @extends('ambersive.documentviewer::printable')
@@ -114,6 +114,16 @@ A full example might look like:
 ```php
 
 @extends('ambersive.documentviewer::printable')
+
+@section('styles')
+
+    <style>
+        body {
+            // Custom Page style goes here
+        }
+    </style>
+
+@endsection
 
 @section('document')
 
