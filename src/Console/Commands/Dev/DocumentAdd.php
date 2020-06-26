@@ -17,7 +17,7 @@ class DocumentAdd extends GeneratorCommand
      *
      * @var string
      */
-    protected $signature = 'make:printable {name}';
+    protected $signature = 'make:printable {name} {--force}';
 
     /**
      * The console command description.
@@ -36,7 +36,8 @@ class DocumentAdd extends GeneratorCommand
 
         $name = $this->qualifyClass($this->getNameInput());
 
-        $path = $this->getPath(ucfirst($name));
+        $path        = $this->getPath($name);
+        $pathForView = $this->getPathForView($name);
         
         if ((! $this->hasOption('force') ||
              ! $this->option('force')) &&
@@ -47,10 +48,12 @@ class DocumentAdd extends GeneratorCommand
         }
 
         $this->makeDirectory($path);
+        $this->makeDirectory($pathForView);
 
-        $this->files->put($path, $this->sortImports($this->buildClass($name)));
+        $this->files->put($path, $this->sortImports($this->buildClassCustom($name, 'Printable')));
+        $this->files->put($pathForView, $this->sortImports($this->buildClassCustom($name, 'PrintableView')));
 
-        $this->info($this->type.' created successfully.');
+        $this->info($this->type.' created successfully (data class and blade file).');
 
     }
 
@@ -62,9 +65,9 @@ class DocumentAdd extends GeneratorCommand
      *
      * @throws \Illuminate\Contracts\Filesystem\FileNotFoundException
      */
-    protected function buildClass($name)
+    protected function buildClassCustom(String $name, String $stubname)
     {
-        $stub = $this->files->get($this->getStub());
+        $stub = $this->files->get($this->getStubFilePath($stubname));
 
         return $this->replaceNamespace($stub, $name)->replaceClass($stub, $name);
     }
@@ -74,9 +77,16 @@ class DocumentAdd extends GeneratorCommand
      *
      * @return string
      */
-    protected function rootNamespace()
+    protected function rootNamespace():String
     {
         return $this->laravel->getNamespace()."Printables";
+    }
+
+    /**
+     * Returns the path to the stubs folder
+     */
+    protected function getStub(): String {
+        return __DIR__."/../../../Stubs/";
     }
 
     /**
@@ -84,21 +94,44 @@ class DocumentAdd extends GeneratorCommand
      *
      * @return string
      */
-    protected function getStub():String
+    protected function getStubFilePath(String $stubname):String
     {
-        return __DIR__.'/../../../Stubs/Printable.stub';
+        return $this->getStub()."${stubname}.stub";
     }
     
     /**
-     * Returns the path for the document
+     * Returns the path for the document class
      *
      * @param  mixed $name
      * @return String
      */
-    protected function getPath($name):String
-    {
+    protected function getPath($name):String {
         $name = Str::replaceFirst($this->rootNamespace(), '', $name);
-        return $this->laravel['path'].'/Printables/'.str_replace('\\', '/', $name).'.php';
+        return $this->getPathFolder($name, "app/Printables");
+    }
+    
+    /**
+     * Returns the path for the view (blade) file
+     *
+     * @param  mixed $name
+     * @return String
+     */
+    protected function getPathForView($name):String {
+        $name = Str::replaceFirst($this->rootNamespace(), '', $name).".blade";
+        return strtolower(base_path("resources/views/printables/".str_replace('\\', '/', $name).'.php'));
+    }
+
+        
+    /**
+     * Returns the base path for the file
+     *
+     * @param  mixed $name
+     * @param  mixed $folder
+     * @return String
+     */
+    protected function getPathFolder(String $name, String $folder = ''): String {
+        $name = Str::replaceFirst($this->rootNamespace(), '', $name);
+        return base_path($folder.str_replace('\\', '/', $name).'.php');
     }
 
     /**
@@ -110,10 +143,12 @@ class DocumentAdd extends GeneratorCommand
      */
     protected function replaceNamespace(&$stub, $name)
     {
+        
+        $bladename = strtolower(str_replace("\\", ".", str_replace($this->rootNamespace()."\\", "printables.", $name)));
 
         $stub = str_replace(
-            ['DummyNamespace', 'DummyRootNamespace', 'NamespacedDummyUserModel'],
-            [$this->getNamespace($name), $this->rootNamespace(), $this->userProviderModel()],
+            ['DummyNamespace', 'DummyRootNamespace', 'NamespacedDummyUserModel', 'DummyBladeName'],
+            [$this->getNamespace($name), $this->rootNamespace(), $this->userProviderModel(), $bladename],
             $stub
         );
 

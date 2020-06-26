@@ -30,7 +30,7 @@ $signed = false
 
 Route::document(
     "invoices/{id}", 
-    "/invoices",
+    "invoices", 
     \App\Printables\Invoice::class, 
     [
         // Middleware for getting the document
@@ -68,6 +68,7 @@ class Invoice extends DocumentAbstract
 
     // Define the blade you want to return as printable document
     public String $blade = "ambersive.documentviewer::printable_default";
+    public bool  $useValidationEndpoint = false; 
 
     public function setData(){
         // Request is available in $this->request
@@ -85,12 +86,24 @@ class Invoice extends DocumentAbstract
 
     }
 
+    public function validateDocumentHandler(Request $request) {
+
+        // Handle the validation
+        // This information is a helper 
+        // Requires a response (preferable json)
+        return ['status' => 200];
+
+    }
+
 }
 ```
 
-### Step 4: Generate a valid blade file
+### Step 4: Modify the blade file
 
-Create a blade file. If you want to get our print optimizations you need to use our file document base layout
+The make command also creates a blade file within the resource folder.
+It will come with some basic scaffold settings so you will be able to create beautiful documents in no time.
+
+But you can also define or resource the files.
 
 ```php
 @extends('ambersive.documentviewer::printable')
@@ -109,6 +122,10 @@ A full example might look like:
 @endsection
 
 ``` 
+
+## Need a way to create PDF files?
+
+We created a [microservice](https://github.com/AMBERSIVE/print-api) which is also open-source to create pdf files. If you need a smooth way to interact with this microservice you can use our [package](https://github.com/AMBERSIVE/laravel-print-api) for that.
 
 ## Security Vulnerabilities
 

@@ -12,6 +12,6 @@
 
 @section('document')
 
-    <div>TODO: Print document</div>
+    <div>Create your printable document here.</div>
 
 @endsection
