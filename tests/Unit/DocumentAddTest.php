@@ -38,7 +38,7 @@ class DocumentAddTest extends TestCase {
      */
     public function testDocumentViewerAddCommandWillWork(): void {
 
-        $this->artisan('make:printable test')->assertExitCode(0);
+        $this->artisan('make:printable test --force')->assertExitCode(0);
 
         $this->assertTrue(File::exists(base_path("app/Printables/test.php")));
         $this->assertTrue(File::exists(resource_path("views/printables/test.blade.php")));
