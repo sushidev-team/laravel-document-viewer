@@ -41,6 +41,9 @@ class DocumentAddTest extends TestCase {
         $this->artisan('make:printable test --force')->assertExitCode(0);
 
         $this->assertTrue(File::exists(base_path("app/Printables/test.php")));
+
+        dd(shell_exec("ls ".resource_path("views/printables/test.blade.php")));
+
         $this->assertTrue(File::exists(resource_path("views/printables/test.blade.php")));
     }
 
