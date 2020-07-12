@@ -1,6 +1,6 @@
 <?php 
 
-namespace AMBERSIVE\Tests;
+namespace AMBERSIVE\Tests\Unit;
 
 use Config;
 use File;

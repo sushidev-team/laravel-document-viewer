@@ -28,7 +28,8 @@
     },
     "autoload-dev": {
         "psr-4": {
-            "AMBERSIVE\\Tests\\": "tests/"
+            "AMBERSIVE\\Tests\\": "tests/",
+            "App\\": "vendor/orchestra/testbench-core/laravel/app\/"
         }
     },
     "extra": {
