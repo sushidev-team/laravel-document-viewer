@@ -40,6 +40,10 @@ class RouteTest extends TestCase {
         $response = $this->get("test/1");
         $content = $response->getContent();
 
+        if ($response->getStatusCode() !== 200){
+            dd($content);
+        }
+
         $response->assertStatus(200);
         $this->assertNotFalse(strpos($content, "Create your printable document here."));
 
