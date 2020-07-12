@@ -16,20 +16,13 @@ class RouteTest extends TestCase {
     protected function setUp(): void
     {
         parent::setUp();
-        shell_exec('rm -rf '.resource_path("views/printables"));
-        shell_exec('rm -rf '.app_path("Printables"));
-
-        $this->artisan('make:printable test --force')->assertExitCode(0);
-
-        Route::document("test/{id}", "test", \App\Printables\test::class, [], false, \App\Printables\test::class, []);        
+        Route::document("test/{id}", "test", \AMBERSIVE\Tests\Testfiles\Demo::class, [], false, \AMBERSIVE\Tests\Testfiles\Demo::class, []);
 
     }
 
     protected function tearDown(): void
     {
         parent::tearDown();
-        shell_exec('rm -rf '.resource_path("views/printables"));
-        shell_exec('rm -rf '.app_path("Printables"));
     }
 
     /**
@@ -39,10 +32,6 @@ class RouteTest extends TestCase {
 
         $response = $this->get("test/1");
         $content = $response->getContent();
-
-        if ($response->getStatusCode() !== 200){
-            dd($content);
-        }
 
         $response->assertStatus(200);
         $this->assertNotFalse(strpos($content, "Create your printable document here."));
@@ -54,12 +43,13 @@ class RouteTest extends TestCase {
      */
     public function testIfRouteWillFailWithServerError():void {
 
-        Route::document("test/{id}", "test", \App\Printables\test::class, ["auth"], false, \App\Printables\test::class, []);
+        Route::document("test/{id}", "test", \AMBERSIVE\Tests\Testfiles\Demo::class, ["auth"], false, \AMBERSIVE\Tests\Testfiles\Demo::class, []);
 
         $response = $this->get("/test/1");
         $content = $response->getContent();
 
         $response->assertStatus(500);
+
         $this->assertNotFalse(strpos($content, "Route [login] not defined"));
 
     }
@@ -70,7 +60,7 @@ class RouteTest extends TestCase {
     public function testIfRouteWillFailWillFailWithAnRedirect():void {
 
         Route::get("login", function(){})->name("login");
-        Route::document("test/{id}", "test", \App\Printables\test::class, ["auth"], false, \App\Printables\test::class, []);
+        Route::document("test/{id}", "test", \AMBERSIVE\Tests\Testfiles\Demo::class, ["auth"], false, \AMBERSIVE\Tests\Testfiles\Demo::class, []);
 
         $response = $this->get("/test/1");
         $response->assertStatus(302);
@@ -82,7 +72,7 @@ class RouteTest extends TestCase {
      */
     public function testIfRouteSignedWillWorkAndRequestWillFailWithForbidden(): void {
 
-        Route::document("test/{id}", "test", \App\Printables\test::class, [], true, \App\Printables\test::class, []);
+        Route::document("test/{id}", "test", \AMBERSIVE\Tests\Testfiles\Demo::class, [], true, \AMBERSIVE\Tests\Testfiles\Demo::class, []);
 
         $response = $this->get("/test/1");
         $response->assertStatus(403);
@@ -94,12 +84,16 @@ class RouteTest extends TestCase {
      */
     public function testIfRouteSignedWillWorkAndRequestWillSucceedIfTokenIsPresent(): void {
 
-        Route::document("test/{id}", "test", \App\Printables\test::class, [], true, \App\Printables\test::class, []);
+        Route::document("test/{id}", "test", \AMBERSIVE\Tests\Testfiles\Demo::class, [], true, \AMBERSIVE\Tests\Testfiles\Demo::class, []);
 
         $url = URL::signedRoute('test', ['id' => 1]);
 
         $response = $this->get($url);
         $content = $response->getContent();
+
+        if ($response->getStatusCode() !== 200){
+            dd($content);
+        }
 
         $response->assertStatus(200);
         $this->assertNotFalse(strpos($content, "Create your printable document here."));

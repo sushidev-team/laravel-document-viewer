@@ -2,6 +2,8 @@
 
 namespace AMBERSIVE\DocumentViewer;
 
+use App;
+
 use Illuminate\Support\ServiceProvider;
 
 class DocumentViewerServiceProvider extends ServiceProvider
@@ -57,6 +59,10 @@ class DocumentViewerServiceProvider extends ServiceProvider
 
         // Views
         $this->loadViewsFrom(__DIR__.'/Views', 'ambersive.documentviewer');
+
+        if (App::environment() === 'testing') {
+            $this->loadViewsFrom(__DIR__.'/../tests/Testfiles', 'ambersive.testing');
+        }
 
     }
 
