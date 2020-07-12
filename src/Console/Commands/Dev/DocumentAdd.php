@@ -107,7 +107,7 @@ class DocumentAdd extends GeneratorCommand
      */
     protected function getPath($name):String {
         $name = Str::replaceFirst($this->rootNamespace(), '', $name);
-        return $this->getPathFolder($name, "app/Printables");
+        return $this->getPathFolder($name, config("document-viwer.path_class", 'app/Printables'));
     }
     
     /**
@@ -118,7 +118,7 @@ class DocumentAdd extends GeneratorCommand
      */
     protected function getPathForView($name):String {
         $name = Str::replaceFirst($this->rootNamespace(), '', $name).".blade";
-        return strtolower(base_path("resources/views/printables/".str_replace('\\', '/', $name).'.php'));
+        return str_replace("//", "/", strtolower(base_path(config("document-viewer.path_views", "resources/views/printables")."/".str_replace('\\', '/', $name).'.php')));
     }
 
         
