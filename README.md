@@ -3,6 +3,7 @@
 The goal of this project is the attemp to provide a helper functionality for creating beautiful, printable and secure documents.
 
 [![Maintainability](https://api.codeclimate.com/v1/badges/0f9d20da7317b5425e72/maintainability)](https://codeclimate.com/github/AMBERSIVE/laravel-document-viewer/maintainability) [![Test Coverage](https://api.codeclimate.com/v1/badges/0f9d20da7317b5425e72/test_coverage)](https://codeclimate.com/github/AMBERSIVE/laravel-document-viewer/test_coverage)
+[![Build Status](https://travis-ci.org/AMBERSIVE/laravel-document-viewer.svg?branch=master)](https://travis-ci.org/AMBERSIVE/laravel-document-viewer)
 
 ## Installation
 
