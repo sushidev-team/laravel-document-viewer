@@ -6,6 +6,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.2.2] - 2020-09-09
+### Fixed
+- Problem with incorrect guzzle
+
 ## [0.2.1] - 2020-09-09
 ### Added
 - Added support for Laravel 8
